@@ -32,6 +32,7 @@ const PomodoroDashboard = lazy(() =>
 );
 const WorkRise = lazy(() => import("./intl/ug/WorkRise"));
 const MentorDashboard = lazy(() => import("./mentorship/MentorDashboard"));
+const Logout = lazy(() => import("./profile/Logout"));
 
 export default ({ childProps }) => (
   <Suspense fallback={<Spinner />}>
@@ -176,7 +177,12 @@ export default ({ childProps }) => (
         component={PomodoroDashboard}
         props={childProps}
       />
-
+      <AuthenticatedRoute
+        path="/logout"
+        exact
+        component={Logout}
+        props={childProps}
+      />
       {/* Finally, catch all unmatched routes */}
       <Route component={NotFound} />
     </Switch>
