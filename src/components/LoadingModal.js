@@ -24,7 +24,7 @@ const LoadingModal = ({ isLoading = false }) => {
       setTimeoutRef(
         setTimeout(() => {
           setShowLogout(true);
-        }, 1000)
+        }, 1000 * 20)
       );
     } else if (isLoading === false && timeoutRef !== null) {
       clearTimeout(timeoutRef);
