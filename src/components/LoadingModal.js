@@ -1,5 +1,6 @@
 import { DialogContent, useTheme } from "@mui/material";
 import { quotes } from "../libs/quotes";
+import { useEffect, useState } from "react";
 
 const randomIndex = Math.floor(Math.random() * Math.floor(quotes.length));
 
@@ -10,6 +11,18 @@ const randomIndex = Math.floor(Math.random() * Math.floor(quotes.length));
 
 const LoadingModal = () => {
   const theme = useTheme();
+  const [showLogout, setShowLogout] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowLogout(true);
+    }, 1000 * 20);
+
+    return () => {
+      setShowLogout(false);
+    }
+  }, [])
+
   return (
     <>
       <DialogContent
@@ -46,6 +59,13 @@ const LoadingModal = () => {
             {quotes[randomIndex].author}
           </div>
         </div>
+
+        {
+          showLogout ?
+          <Button onClick={() => window.location.replace("/logout")}>
+            Logout
+          </Button> : <></>
+        }
       </DialogContent>
     </>
   );
