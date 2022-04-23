@@ -1,6 +1,7 @@
-import { DialogContent, useTheme } from "@mui/material";
-import { quotes } from "../libs/quotes";
 import { useEffect, useState } from "react";
+import { DialogContent, useTheme } from "@mui/material";
+import Button from "react-bootstrap/lib/Button";
+import { quotes } from "../libs/quotes";
 
 const randomIndex = Math.floor(Math.random() * Math.floor(quotes.length));
 
@@ -9,19 +10,26 @@ const randomIndex = Math.floor(Math.random() * Math.floor(quotes.length));
  * @TODO Issue #53
  */
 
-const LoadingModal = () => {
+const LoadingModal = ({ isLoading = false }) => {
   const theme = useTheme();
   const [showLogout, setShowLogout] = useState(false);
+  const [timeoutRef, setTimeoutRef] = useState(null);
 
   useEffect(() => {
-    setTimeout(() => {
-      setShowLogout(true);
-    }, 1000 * 20);
+    if (isLoading === true) {
+      if (timeoutRef !== null) {
+        clearTimeout(timeoutRef);
+      }
 
-    return () => {
-      setShowLogout(false);
+      setTimeoutRef(
+        setTimeout(() => {
+          setShowLogout(true);
+        }, 1000)
+      );
+    } else if (isLoading === false && timeoutRef !== null) {
+      clearTimeout(timeoutRef);
     }
-  }, [])
+  }, [isLoading]);
 
   return (
     <>
@@ -59,13 +67,13 @@ const LoadingModal = () => {
             {quotes[randomIndex].author}
           </div>
         </div>
-
-        {
-          showLogout ?
+        {showLogout ? (
           <Button onClick={() => window.location.replace("/logout")}>
             Logout
-          </Button> : <></>
-        }
+          </Button>
+        ) : (
+          <></>
+        )}
       </DialogContent>
     </>
   );

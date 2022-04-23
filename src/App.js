@@ -621,7 +621,7 @@ class App extends Component {
                   aria-labelledby="loading"
                   aria-describedby="Please wait while the page loads"
                 >
-                  <LoadingModal />
+                  <LoadingModal isLoading={this.state.loading} />
                 </Dialog>
               </Box>
             </Sentry.ErrorBoundary>
