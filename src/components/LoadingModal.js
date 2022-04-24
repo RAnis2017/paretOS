@@ -19,6 +19,7 @@ const LoadingModal = ({ isLoading = false }) => {
     if (isLoading === true) {
       if (timeoutRef !== null) {
         clearTimeout(timeoutRef);
+        setTimeoutRef(null);
       }
 
       setTimeoutRef(
@@ -28,6 +29,7 @@ const LoadingModal = ({ isLoading = false }) => {
       );
     } else if (isLoading === false && timeoutRef !== null) {
       clearTimeout(timeoutRef);
+      setTimeoutRef(null);
     }
   }, [isLoading]);
 
